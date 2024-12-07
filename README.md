@@ -1,1 +1,1 @@
-# client-bot
+# client-discord-bot
