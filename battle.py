@@ -16,16 +16,28 @@ intents.members = True
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-data_file_path = 'C:/Users/sarth/OneDrive/Desktop/sarangi.bot/sarangi-discord-bot/data.json'
+data_file_path = os.path.join(os.getcwd(), 'data', 'data.json')
 
 def load_data_from_json():
     try:
-        with open(data_file_path, 'r') as file:
-            data = json.load(file)
+        if os.path.exists(data_file_path):
+            with open(data_file_path, 'r') as file:
+                data = json.load(file)
             return data
+        else:
+            print(f"File not found: {data_file_path}")
+            return {}  # return empty dictionary if file doesn't exist
     except Exception as e:
         print(f"Error loading data: {e}")
         return {}
+
+# Example function to save data back to the file
+def save_data_to_json(data):
+    try:
+        with open(data_file_path, 'w') as file:
+            json.dump(data, file)
+    except Exception as e:
+        print(f"Error saving data: {e}")
 
 def get_user_cards(user_id):
     data = load_data_from_json()
